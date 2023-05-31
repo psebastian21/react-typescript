@@ -1,12 +1,10 @@
+import { TodosContext } from '../store/todos-context'
 import styles from './NewTodo.module.css'
 
-import { useRef } from "react"
+import { useContext, useRef } from "react"
 
-interface NewTodoProps {
-    addTodo: (text: string) => void
-}
-
-const NewTodo: React.FC<NewTodoProps> = (props) => {
+const NewTodo: React.FC = () => {
+    const todosCtx = useContext(TodosContext)
     const todoTextInputRef = useRef<HTMLInputElement>(null)
     const submithandler = (event: React.FormEvent) => {
         event.preventDefault()
@@ -14,7 +12,7 @@ const NewTodo: React.FC<NewTodoProps> = (props) => {
         if(enteredText.trim().length === 0){
             return
         }
-        props.addTodo(enteredText)
+        todosCtx.addTodo(enteredText)
     }
     return (
         <form onSubmit={submithandler} className={styles.form}>
