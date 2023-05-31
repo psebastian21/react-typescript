@@ -1,13 +1,16 @@
-import Todo from '../models/Todo'
+import TodoModel from '../models/Todo'
+import Todo from './Todo'
+import styles from './Todos.module.css'
 
 interface TodosProps {
-    items: Todo[]
+    items: TodoModel[]
+    deleteTodo: (id: string) => void
 }
 
 const Todos: React.FC<TodosProps> = (props) => {
     return (
-        <ul>
-            {props.items.map(item => <li key={item.id}>{item.text}</li>)}
+        <ul className={styles.todos}>
+            {props.items.map(item => <Todo key={item.key} text={item.text} deleteTodo={props.deleteTodo.bind(null, item.key)}/>)}
         </ul>
     )
 }
